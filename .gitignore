@@ -1,0 +1,21 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfplan
+tfplan
+crash.log
+.terraform.lock.hcl.bak
+
+# Lambda build output
+build/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Local env
+.env
+.DS_Store
