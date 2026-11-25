@@ -3,6 +3,9 @@ data "aws_caller_identity" "current" {}
 locals {
   account_id  = data.aws_caller_identity.current.account_id
   github_host = "token.actions.githubusercontent.com"
+  repo_owner  = split("/", var.github_repo)[0]
+  repo_name   = split("/", var.github_repo)[1]
+  github_sub  = "repo:${local.repo_owner}@${var.github_owner_id}/${local.repo_name}@${var.github_repo_id}:ref:refs/heads/main"
 }
 
 # One GitHub OIDC provider per account. Reuse it if it already exists.
@@ -44,7 +47,7 @@ data "aws_iam_policy_document" "trust" {
     condition {
       test     = "StringEquals"
       variable = "${local.github_host}:sub"
-      values   = ["repo:${var.github_repo}:ref:refs/heads/main"]
+      values   = [local.github_sub]
     }
   }
 }

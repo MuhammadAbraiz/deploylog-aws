@@ -15,3 +15,18 @@ variable "create_oidc_provider" {
   type        = bool
   default     = false
 }
+
+# GitHub puts numeric IDs in the OIDC sub claim, e.g.
+# repo:owner@123/name@456:ref:refs/heads/main
+# IDs never change, so a deleted and recreated repo with the same name can't deploy.
+variable "github_owner_id" {
+  description = "Numeric ID of the repo owner (GitHub API: /users/<owner>)"
+  type        = string
+  default     = "98274826"
+}
+
+variable "github_repo_id" {
+  description = "Numeric ID of the repo (GitHub API: /repos/<owner>/<name>)"
+  type        = string
+  default     = "1471642139"
+}
